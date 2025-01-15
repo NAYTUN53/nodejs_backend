@@ -28,7 +28,6 @@ vendorRouter.post('/api/vendor/signup', async (req, res) => {
 
 
 // Sign in api endpoint
-
 vendorRouter.post('/api/vendor/signin', async(req, res) =>{
     try {
         const {email, password} = req.body;
@@ -51,6 +50,16 @@ vendorRouter.post('/api/vendor/signin', async(req, res) =>{
                 res.json({token, vendor: vendorWithoutPassword});
             }
         }
+    } catch (e) {
+        res.status(500).json({error:e.message});  
+    }
+});
+
+// Fetch all vendors without password
+vendorRouter.get('/api/vendors', async(req, res) => {
+    try {
+        const vendors = await Vendor.find().select('-password');
+        return res.status(200).json(vendors); 
     } catch (e) {
         res.status(500).json({error:e.message});  
     }

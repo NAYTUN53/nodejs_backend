@@ -55,4 +55,38 @@ authRouter.post('/api/signin', async(req, res) =>{
     }
 });
 
+// put route for updating user's state, city, and locality
+authRouter.put('/api/users/:id', async(req, res) => {
+    try {
+        // Extract the id params from the request url
+        const {id} = req.params;
+        // Extract state, city and locality from the request body.
+        const {state, city, locality} = req.body;
+        // Find the user by their ID and update the state, city and locality.
+        const updateUser = await User.findByIdAndUpdate(
+            id, 
+            {state, city, locality},
+            {new:true},
+        );
+    // if no user is found, return 404 error 
+    if(!updateUser){
+        return res.status(404).json({error: "User not found to update"});
+    }
+    else{
+        return res.status(200).json(updateUser);
+    }
+    } catch (e) {
+        res.status(500).json({error: e.message});
+    }
+});
+
+// Fetch all user without password
+authRouter.get('/api/users', async(req, res) => {
+    try {
+        const users = await User.find().select('-password'); // .select method make the password exclusive
+        return res.status(200).json(users);
+    } catch (e) {
+        res.status(500).json({error: e.message});
+    }
+});
 module.exports = authRouter;

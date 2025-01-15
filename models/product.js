@@ -7,37 +7,37 @@ const productSchema = mongoose.Schema({
         required: true
     },
 
-    productPrice:{
+    productPrice: {
         type: Number,
         required: true
     },
 
-    quantity:{
+    quantity: {
         type: Number,
         required: true
     },
 
-    description:{
+    description: {
         type: String,
         required: true
     },
 
-    category:{
+    category: {
         type: String,
         required: true
     },
 
-    vendorId:{
+    vendorId: {
         type: String,
         required: true,
     },
 
-    fullName:{
+    fullName: {
         type: String,
         required: true,
     },
 
-    subCategory:{
+    subCategory: {
         type: String,
         required: true
     },
@@ -49,15 +49,28 @@ const productSchema = mongoose.Schema({
         }
     ],
 
-    popular:{
+    popular: {
         type: Boolean,
         default: false
     },
 
-    recommand:{
+    recommand: {
         type: Boolean,
         default: false
-    }
+    },
+
+    // This is for rating
+    averageRating: {
+        type: Number,
+        default: 0,
+    },
+
+    totalRatings: {
+        type: Number,
+        default: 0,
+    },
+
+
 });
 
 const Product = mongoose.model("Product", productSchema);

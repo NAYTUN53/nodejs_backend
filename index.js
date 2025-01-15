@@ -7,9 +7,10 @@ const subCategoryRouter = require('./routes/sub_category');
 const productRouter = require('./routes/product');
 const productReviewRouter = require('./routes/product_review');
 const vendorRouter = require('./routes/vendor');
+const orderRouter = require('./routes/order');
 const cors = require('cors');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 const DB = "mongodb+srv://naytunaungmm:aNEB6I5Nb2Kobz7a@cluster0.0gft2.mongodb.net/";
 
@@ -23,6 +24,7 @@ app.use(subCategoryRouter);
 app.use(productRouter);
 app.use(productReviewRouter);
 app.use(vendorRouter);
+app.use(orderRouter);
 
 
 // Middleware to parse URL-encoded form data
